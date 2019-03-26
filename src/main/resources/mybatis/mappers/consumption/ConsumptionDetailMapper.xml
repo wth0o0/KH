@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yonyou.kh.consumption.dao.ConsumptionDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.yonyou.kh.consumption.entity.ConsumptionDetail" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="SRC_ID" property="srcId" jdbcType="VARCHAR" />
+    <result column="U_ID" property="uId" jdbcType="VARCHAR" />
+    <result column="U_NAME" property="uName" jdbcType="VARCHAR" />
+    <result column="TS_STORE_ID" property="tsStoreId" jdbcType="VARCHAR" />
+    <result column="TS_STORE_NAME" property="tsStoreName" jdbcType="VARCHAR" />
+    <result column="TRANSACTION_TYPE" property="transactionType" jdbcType="INTEGER" />
+    <result column="TRANSACTION_AMOUNT" property="transactionAmount" jdbcType="DECIMAL" />
+    <result column="LAST_MODIFIED_TIME" property="lastModifiedTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="BALANCE" property="balance" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SRC_ID, U_ID, U_NAME, TS_STORE_ID, TS_STORE_NAME, TRANSACTION_TYPE, TRANSACTION_AMOUNT, 
+    CREATE_TIME,BALANCE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_consumption_detail
+    where SRC_ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_consumption_detail
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yonyou.kh.consumption.entity.ConsumptionDetail" >
+    insert into t_consumption_detail (ID, SRC_ID, U_ID, 
+      U_NAME, TS_STORE_ID, TS_STORE_NAME, 
+      TRANSACTION_TYPE, TRANSACTION_AMOUNT, LAST_MODIFIED_TIME, 
+      CREATE_TIME)
+    values (#{id,jdbcType=VARCHAR}, #{srcId,jdbcType=VARCHAR}, #{uId,jdbcType=VARCHAR}, 
+      #{uName,jdbcType=VARCHAR}, #{tsStoreId,jdbcType=VARCHAR}, #{tsStoreName,jdbcType=VARCHAR}, 
+      #{transactionType,jdbcType=INTEGER}, #{transactionAmount,jdbcType=DECIMAL}, #{lastModifiedTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yonyou.kh.consumption.entity.ConsumptionDetail" >
+    insert into t_consumption_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="srcId != null" >
+        SRC_ID,
+      </if>
+      <if test="uId != null" >
+        U_ID,
+      </if>
+      <if test="uName != null" >
+        U_NAME,
+      </if>
+      <if test="tsStoreId != null" >
+        TS_STORE_ID,
+      </if>
+      <if test="tsStoreName != null" >
+        TS_STORE_NAME,
+      </if>
+      <if test="transactionType != null" >
+        TRANSACTION_TYPE,
+      </if>
+      <if test="transactionAmount != null" >
+        TRANSACTION_AMOUNT,
+      </if>
+      <if test="lastModifiedTime != null" >
+        LAST_MODIFIED_TIME,
+      </if>
+      <if test="balance != null">
+      	BALANCE,
+      </if>
+      
+        CREATE_TIME,
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="srcId != null" >
+        #{srcId,jdbcType=VARCHAR},
+      </if>
+      <if test="uId != null" >
+        #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="uName != null" >
+        #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="tsStoreId != null" >
+        #{tsStoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="tsStoreName != null" >
+        #{tsStoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionType != null" >
+        #{transactionType,jdbcType=INTEGER},
+      </if>
+      <if test="transactionAmount != null" >
+        #{transactionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="lastModifiedTime != null" >
+        #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+       now(),
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yonyou.kh.consumption.entity.ConsumptionDetail" >
+    update t_consumption_detail
+    <set >
+      <if test="srcId != null" >
+        SRC_ID = #{srcId,jdbcType=VARCHAR},
+      </if>
+      <if test="uId != null" >
+        U_ID = #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="uName != null" >
+        U_NAME = #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="tsStoreId != null" >
+        TS_STORE_ID = #{tsStoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="tsStoreName != null" >
+        TS_STORE_NAME = #{tsStoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionType != null" >
+        TRANSACTION_TYPE = #{transactionType,jdbcType=INTEGER},
+      </if>
+      <if test="transactionAmount != null" >
+        TRANSACTION_AMOUNT = #{transactionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="lastModifiedTime != null" >
+        LAST_MODIFIED_TIME = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yonyou.kh.consumption.entity.ConsumptionDetail" >
+    update t_consumption_detail
+    set SRC_ID = #{srcId,jdbcType=VARCHAR},
+      U_ID = #{uId,jdbcType=VARCHAR},
+      U_NAME = #{uName,jdbcType=VARCHAR},
+      TS_STORE_ID = #{tsStoreId,jdbcType=VARCHAR},
+      TS_STORE_NAME = #{tsStoreName,jdbcType=VARCHAR},
+      TRANSACTION_TYPE = #{transactionType,jdbcType=INTEGER},
+      TRANSACTION_AMOUNT = #{transactionAmount,jdbcType=DECIMAL},
+      LAST_MODIFIED_TIME = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByType" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_consumption_detail
+    where 
+     <if test="TransactionType != null" >
+    	TRANSACTION_TYPE = #{TransactionType,jdbcType=INTEGER}
+    </if>
+    <if test="TransactionType!=null and uId!=null">
+    and 
+    </if>
+    <if test="uId != null">
+    	U_ID = #{c,jdbcType=VARCHAR}
+    </if>
+    ORDER BY LAST_MODIFIED_TIME desc LIMIT 1
+  </select>
+  
+  <select id="selectByTypeAndUids" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_consumption_detail
+    where 
+    TRANSACTION_TYPE  in  
+    <foreach collection="List" index="TransactionType" open="(" separator="," close=")">
+    	#{TransactionType}
+    </foreach>>
+    and U_ID  in 
+    <foreach collection="List" index="uid" open="(" separator="," close=")">
+    	#{uId}
+    </foreach>>
+    ORDER BY LAST_MODIFIED_TIME desc LIMIT 1
+  </select>
+</mapper>
